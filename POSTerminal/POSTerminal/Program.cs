@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace POSTerminal
 {
@@ -6,7 +7,11 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var transaction = new Transaction(15);
+
+            var trans = transaction.UseCredit();
+            Console.WriteLine(trans);
+            
         }
     }
 }
