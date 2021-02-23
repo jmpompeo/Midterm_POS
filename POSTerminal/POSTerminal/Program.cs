@@ -6,7 +6,11 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var newList = Database.DisplayDatabase();
+            foreach (var item in newList)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
