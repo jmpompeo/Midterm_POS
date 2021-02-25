@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace POSTerminal
 {
@@ -6,7 +7,7 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            var newList = Database.DisplayDatabase();
+            var newList = Database.DisplayItems();
             foreach (var item in newList)
             {
                 Console.WriteLine(item);
