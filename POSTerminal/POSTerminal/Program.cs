@@ -11,6 +11,10 @@ namespace POSTerminal
 
             var trans = transaction.UseCredit();
             Console.WriteLine(trans);
+
+            transaction.UseCheck();
+
+            
             
         }
     }
