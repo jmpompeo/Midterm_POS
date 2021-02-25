@@ -16,14 +16,14 @@ namespace POSTerminal
 
         public decimal OrderAmount { get; }
 
-        public PaymentType SelectPayment(string paymentType)
+        public PaymentType SelectPayment(string paymentType, decimal cashGiven)
         {
-
+            
 
             return (paymentType.ToLower()) switch
             {
-                "cash" => PaymentType.cash,
-                "credit" => PaymentType.credit,
+                "cash" => UseCash(cashGiven),
+                "credit" => Paymentype.credit,
                 "check" => PaymentType.check,
                 _ => throw new Exception(nameof(paymentType)),
             };
@@ -78,7 +78,7 @@ namespace POSTerminal
             return false;
         }
 
-        public decimal UseCash( decimal cashGiven)
+        public decimal UseCash(decimal cashGiven)
         {
             return cashGiven - OrderAmount;
         }

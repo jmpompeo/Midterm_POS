@@ -7,7 +7,7 @@ namespace POSTerminal
     public interface IPayment
     {
 
-        PaymentType SelectPayment(string paymentType);
+        PaymentType SelectPayment(string paymentType, decimal cashGiven);
 
 
     }
