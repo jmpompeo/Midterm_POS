@@ -10,5 +10,6 @@ namespace POSTerminal
         public string Category { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
+
     }
 }
