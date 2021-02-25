@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace POSTerminal
 {
-    class Transaction : IPayment
+    public class Transaction
     {
 
         public Transaction(decimal orderAmount)
@@ -16,17 +16,22 @@ namespace POSTerminal
 
         public decimal OrderAmount { get; }
 
-        public PaymentType SelectPayment(string paymentType, decimal cashGiven)
+        public void SelectPayment(string paymentType, decimal cashGiven)
         {
-            
-
-            return (paymentType.ToLower()) switch
+            switch (paymentType.ToLower())
             {
-                "cash" => UseCash(cashGiven),
-                "credit" => Paymentype.credit,
-                "check" => PaymentType.check,
-                _ => throw new Exception(nameof(paymentType)),
-            };
+                case "cash":
+                    UseCash(cashGiven);
+                    break;
+                case "credit":
+                    UseCredit();
+                    break;
+                case "check":
+                    UseCheck();
+                    break;
+                default:
+                    throw new ArgumentException(nameof(paymentType));
+            }
         }
 
         private bool ValidateCheck(string response)
