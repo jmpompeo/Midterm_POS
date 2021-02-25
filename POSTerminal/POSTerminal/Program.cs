@@ -16,5 +16,12 @@ namespace POSTerminal
             trans.UseCredit();
 
         }
+
+        // Menu
+        // Select itme by name or number
+        // Select quantity
+        // Give user a line item
+        // Redisplay menu 
+
     }
 }
