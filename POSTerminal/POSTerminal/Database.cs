@@ -5,7 +5,6 @@ namespace POSTerminal
 {
     static class Database
     {
-        //readonly static string text = File.ReadAllText(@"C:\Users\Raff\source\GCBootcamp\Midterm_POS\POSTerminal\ProductItem.txt");//Change file path
 
         public static List<Product> RetriveItems()
         {
@@ -23,7 +22,7 @@ namespace POSTerminal
                         Name = output[0],
                         Category = output[1],
                         Description = output[2],
-                        Price = output[3]
+                        Price = int.TryParse(output[3], out int number) ? number: default
                     }) ;
 
                 } while (item != null);
