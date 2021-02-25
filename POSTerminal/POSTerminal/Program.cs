@@ -7,15 +7,7 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            var transaction = new Transaction(15);
-
-            var trans = transaction.UseCredit();
-            Console.WriteLine(trans);
-
-            transaction.UseCheck();
-
-            
-            
+   
         }
     }
 }
