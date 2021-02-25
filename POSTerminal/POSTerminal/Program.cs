@@ -1,6 +1,9 @@
 ﻿using System;
+
+
 using System.Collections.Generic;
 using System.IO;
+
 
 namespace POSTerminal
 {
@@ -8,7 +11,8 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-          
+
+
         }
     }
 }
