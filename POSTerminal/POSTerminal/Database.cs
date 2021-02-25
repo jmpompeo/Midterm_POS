@@ -5,11 +5,10 @@ namespace POSTerminal
 {
     static class Database
     {
-        //readonly static string text = File.ReadAllText(@"C:\Users\Raff\source\GCBootcamp\Midterm_POS\POSTerminal\ProductItem.txt");//Change file path
 
-        public static List<Class1> RetriveItems()
+        public static List<Product> RetriveItems()
         {
-            List<Class1> menu = new List<Class1>();
+            List<Product> menu = new List<Product>();
 
             using (var reader = new StreamReader(@"ProductItem.txt"))
             {
@@ -18,12 +17,12 @@ namespace POSTerminal
                 {
                     item = reader.ReadLine();
                     var output = item.Split(",");
-                    menu.Add(new Class1
+                    menu.Add(new Product
                     {
                         Name = output[0],
                         Category = output[1],
                         Description = output[2],
-                        Price = output[3]
+                        Price = int.TryParse(output[3], out int number) ? number: default
                     }) ;
 
                 } while (item != null);
