@@ -13,6 +13,15 @@ namespace POSTerminal
         {
             var newList = Database.RetriveItems();
             DisplayMenu(newList);
+
+            var productList = new List<Product>();
+            productList.Add(new Product { Name = "Cheeseburger", Price = 4, Quantity = 2 });
+            productList.Add(new Product { Name = "Cheeseburger", Price = 4, Quantity = 4 });
+            productList.Add(new Product { Name = "Cheeseburger", Price = 4, Quantity = 3 });
+
+            var trans = new Transaction();
+            var amount = trans.GetLineTotal(productList);
+            Console.WriteLine(amount);
             
         }
 
@@ -25,8 +34,7 @@ namespace POSTerminal
 
         }
 
-        // Menu
-        // Select itme by name or number
+        // Select item by name or number
         // Select quantity
         // Give user a line item
         // Redisplay menu 

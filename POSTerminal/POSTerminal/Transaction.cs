@@ -12,6 +12,12 @@ namespace POSTerminal
         public Transaction(decimal orderAmount)
         {
             OrderAmount = orderAmount;
+            
+        }
+
+        public Transaction()
+        {
+
         }
 
         public decimal OrderAmount { get; }
@@ -130,6 +136,37 @@ namespace POSTerminal
                 response = Console.ReadLine();
                 
             } while (!ValidateCheck(response));
+        }
+
+        public decimal GetLineTotal(List<Product> products)
+        {
+            decimal lineTotal = 0;
+
+            foreach (var product in products)
+            {
+                var total = product.Price * product.Quantity;
+                lineTotal += total;
+            }
+
+            return lineTotal;
+        }
+
+        public decimal CalculateTotal(List<Product> products) // test method to see if it works
+        {
+            decimal salesTax = .06M;
+            decimal linetotal;
+            decimal subtotal = 0;
+            decimal grandTotal = 0;
+
+            foreach (var product in products)
+            {
+                linetotal = GetLineTotal(products);
+                subtotal += linetotal;
+                grandTotal += subtotal * salesTax;
+
+            }
+
+            return grandTotal;
         }
     }
 }
