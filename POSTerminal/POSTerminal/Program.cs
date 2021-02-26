@@ -11,7 +11,6 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-
             var newList = Database.RetriveItems();
             DisplayMenu(newList);
             

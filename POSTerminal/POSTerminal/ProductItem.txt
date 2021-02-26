@@ -1,3 +1,4 @@
+
 Cheese burger,Burger,A single patty with cheese,$4.00
 Double cheese,Burger,Two patties with cheese,$5.00
 Cheese sticks,Bread,Fresh bread covered with 4 types of cheese,$3.50

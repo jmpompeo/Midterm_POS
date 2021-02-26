@@ -120,7 +120,6 @@ namespace POSTerminal
             
             return "APPROVED" + "\r\n"  + "Thank you for shopping with us! ";
         }
-
         public void UseCheck()
         {
             string response;
