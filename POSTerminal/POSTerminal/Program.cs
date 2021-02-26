@@ -11,9 +11,18 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            var trans = new Transaction(50);
 
-            trans.UseCredit();
+            var newList = Database.RetriveItems();
+            DisplayMenu(newList);
+            
+        }
+
+        private static void DisplayMenu(List<Product> products)
+        {
+            foreach (var item in products)
+            {
+                Console.WriteLine($"{item.Name} {item.Category} {item.Description} {item.Price}");
+            }
 
         }
 
