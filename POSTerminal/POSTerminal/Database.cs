@@ -29,7 +29,7 @@ namespace POSTerminal
                         Name = output[0],
                         Category = output[1],
                         Description = output[2],
-                        Price = int.TryParse(output[3], out int number) ? number : default
+                        Price = decimal.TryParse(output[3], out int number) ? number : default
                     });
                 } while (item != null);
             }
