@@ -11,9 +11,7 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            var trans = new Transaction(50);
-
-            trans.UseCredit();
+           
 
         }
     }
