@@ -24,6 +24,17 @@ namespace POSTerminal
             }
 
         }
+        private static string GetItemChoice()
+        {
+            Console.WriteLine("What would you like to order?");
+            string order = Console.ReadLine();
+
+
+            return $"You ordered {order}";
+        }
+             
+              
+
 
         // Menu
         // Select itme by name or number
