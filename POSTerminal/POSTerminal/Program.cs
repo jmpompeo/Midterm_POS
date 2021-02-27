@@ -9,10 +9,9 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to CJR!");
-            Console.WriteLine();
-            var products = Database.RetriveItems(); 
-            DisplayMenu(products); 
+            var product = new Product();
+            product.Menu();
+
         }
 
         public static void DisplayMenu(List<Product> products)
@@ -29,10 +28,5 @@ namespace POSTerminal
           
             return $"You ordered {order}";
         }
-        // Menu
-        // Select itme by name or number
-        // Select quantity
-        // Give user a line item
-        // Redisplay menu 
     }
 }
