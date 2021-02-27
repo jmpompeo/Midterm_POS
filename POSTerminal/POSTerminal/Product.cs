@@ -7,13 +7,14 @@ namespace POSTerminal
     public class Product
     {
         public int MealNumber { get; set; }
+
         public string Name { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public decimal Quantity { get; set; }
         public decimal Total { get; set; }
-
+      
         public List<string> GetProductItem()
         {
             List<string> itemsordered = new List<string>();
@@ -37,58 +38,38 @@ namespace POSTerminal
                 Console.WriteLine($"{item.MealNumber}: {item.Name}, {item.Description}, ${item.Price}");
             }
         }
+      
+        public static Dictionary<int, int> CustomerOrders()
+        {
+            Dictionary<int, int> menuItems = new Dictionary<int, int>();
 
-        //public List<string> GetProductItem()
-        //{
-        //    List<string> itemsordered = new List<string>();
+            bool addToOrder = true;
 
+            while (addToOrder)
+            {
+                Console.WriteLine("What would you like to order?");
+                string item = Console.ReadLine();
+                int itemselect;
+                Int32.TryParse(item, out itemselect);
 
-        //    return itemsordered;
-        //}
+                Console.WriteLine($"How many {item}(s) would you like to order?");
+                string quantity = Console.ReadLine();
+                int itemquantity;
+                Int32.TryParse(quantity, out itemquantity);
+              
+                menuItems.Add(itemselect, itemquantity);
 
-        //private static string ItemOrdered()
-        //{
+                Console.WriteLine("Would you like to add to your order? (y/n)");
+                string response = Console.ReadLine().ToUpper();
 
+                if (response == "N")
+                {
+                    addToOrder = false;
+                }
 
-        //    return "";
-        //}
-
-        //public static string Inventory()
-        //{
-        //    //    Dictionary<string, int> menuItems = new Dictionary<string, int>()
-        //    //{
-        //    //    {"burger", 1}
-        //    //};
-        //    //    int dictionarykey = 1;
-
-        //    //    if (menuItems.Values.Equals(dictionarykey))
-        //    //    {
-        //    //        return menuItems.Keys.Equals(string);
-        //    //    }
-
-        //    Dictionary<string, int> menuItems = new Dictionary<string, int>();
-        //    menuItems.Add("Ind", 1);
-
-
-        //    int num = 0;
-        //    while (true)
-        //    {
-        //        Console.WriteLine("How many ____ would you like to order?");
-        //        var itemquantity = Console.ReadLine();
-        //        if (itemquantity == itemquantity)
-        //            menuItems.Add();
-
-
-          // }
+            }
+          
+            return menuItems;
         }
     }
-
-
-        //    }
-
-        //}
-    }
-
-
 }
-

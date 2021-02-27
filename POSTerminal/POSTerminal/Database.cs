@@ -5,10 +5,11 @@ namespace POSTerminal
 {
     static class Database
     {
-       
+
         public static List<Product> RetriveItems()
         {
             List<Product> menu = new List<Product>();
+
 
             using (var reader = new StreamReader(@"C:\Users\riuliani\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
@@ -24,10 +25,10 @@ namespace POSTerminal
                         break;
                     }
 
+
                     var output = item.Split(",");
                     menu.Add(new Product
                     {
-
                         MealNumber = int.TryParse(output[0], out int mealNumber) ? mealNumber : default,
                         Name = output[1],
                         Category = output[2],

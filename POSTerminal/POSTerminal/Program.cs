@@ -15,11 +15,16 @@ namespace POSTerminal
 
         public static void DisplayMenu(List<Product> products)
         {
+            //int count = 0;
+
             foreach (var item in products)
             {
-                Console.WriteLine($"{item.Name} {item.Category} {item.Description} {item.Price}");
+                //++count;
+
+                Console.WriteLine($"{item.OrderNumber}", $"{item.Name} {item.Category} {item.Description} {item.Price}");
             }
         }
+      
         private static string GetItemChoice()
         {
             Console.WriteLine("What would you like to order?");
