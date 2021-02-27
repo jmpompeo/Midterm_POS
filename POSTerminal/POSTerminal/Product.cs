@@ -12,10 +12,23 @@ namespace POSTerminal
         public string Description { get; set; }
         public decimal Price { get; set; }
         public decimal Quantity { get; set; }
+        public decimal Total { get; set; }
+
+        public List<string> GetProductItem()
+        {
+            List<string> itemsordered = new List<string>();
+
+            return itemsordered;
+        }
+
+        private static string ItemOrdered()
+        {
+           return "";
+        }
 
         public void Menu()
         {
-            var prudcutList = Database.RetriveItems();
+            var producutList = Database.RetriveItems();
 
             Console.WriteLine("Welcom to CJR! Here is our menu:");
 
@@ -65,12 +78,17 @@ namespace POSTerminal
         //        if (itemquantity == itemquantity)
         //            menuItems.Add();
 
+
+          // }
+        }
+    }
+
+
         //    }
 
         //}
     }
 
 
-
-
 }
+

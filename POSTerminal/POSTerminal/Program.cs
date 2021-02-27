@@ -11,7 +11,6 @@ namespace POSTerminal
         {
             var product = new Product();
             product.Menu();
-
         }
 
         public static void DisplayMenu(List<Product> products)

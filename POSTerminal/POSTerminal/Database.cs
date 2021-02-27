@@ -27,6 +27,7 @@ namespace POSTerminal
                     var output = item.Split(",");
                     menu.Add(new Product
                     {
+
                         MealNumber = int.TryParse(output[0], out int mealNumber) ? mealNumber : default,
                         Name = output[1],
                         Category = output[2],
