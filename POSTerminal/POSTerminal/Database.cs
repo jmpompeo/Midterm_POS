@@ -30,9 +30,8 @@ namespace POSTerminal
                         Name = output[0],
                         Category = output[1],
                         Description = output[2],
-                      
                         Price = decimal.TryParse(output[3], out decimal number) ? number : default,
-                        Quantity = decimal.TryParse(output[4], out decimal number1) ? number1 : default,
+                        // Quantity = decimal.TryParse(output[4], out decimal number1) ? number1 : default,
 
                     });
 
