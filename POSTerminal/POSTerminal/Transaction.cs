@@ -19,7 +19,6 @@ namespace POSTerminal
         }
 
         public decimal OrderAmount { get; }
-       
 
         public void SelectPayment(string paymentType, decimal cashGiven)
         {
