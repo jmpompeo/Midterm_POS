@@ -8,13 +8,18 @@ namespace POSTerminal
 {
     public class Transaction
     {
-
         public Transaction(decimal orderAmount)
         {
             OrderAmount = orderAmount;
         }
 
+        public Transaction()
+        {
+
+        }
+
         public decimal OrderAmount { get; }
+       
 
         public void SelectPayment(string paymentType, decimal cashGiven)
         {
@@ -44,7 +49,18 @@ namespace POSTerminal
             }
 
             return false;
-            
+        }
+
+        private bool ValidateLicense(string license)
+        {
+            var reg = new Regex(@"^[A-Z]*\d{1,16}");
+
+            if (reg.IsMatch(license))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool ValidateCardNum(string response)
@@ -123,6 +139,13 @@ namespace POSTerminal
         public void UseCheck()
         {
             string response;
+            string license = null;
+
+            do
+            {
+                Console.WriteLine("Please enter your driver's license number: ");
+
+            } while (!ValidateLicense(license));
 
             do
             {
@@ -130,6 +153,33 @@ namespace POSTerminal
                 response = Console.ReadLine();
                 
             } while (!ValidateCheck(response));
+        }
+
+        public List<Product> GetLineTotal(List<Product> products)
+        {
+            
+            var lineTotal = new List<Product>();
+
+            foreach (var product in products)
+            {
+                var total = product.Price * product.Quantity;
+                lineTotal.Add(new Product { Name = product.Name, Quantity = product.Quantity, Price = product.Price, Total = total });
+            }
+
+            return lineTotal;
+        }
+
+        public decimal CalculateTotal(List<Product> lineTotal)
+        {
+            decimal salesTax = .06M;
+            decimal subTotal = 0;
+
+            foreach (var item in lineTotal)
+            {
+                 subTotal += item.Total;
+            }
+
+            return (subTotal * salesTax) + subTotal;
         }
     }
 }

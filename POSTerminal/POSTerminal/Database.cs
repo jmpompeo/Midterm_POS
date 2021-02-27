@@ -5,13 +5,11 @@ namespace POSTerminal
 {
     static class Database
     {
-        //d
         public static List<Product> RetriveItems()
         {
             List<Product> menu = new List<Product>();
 
-
-            using (var reader = new StreamReader(@"C:\Users\Raff\source\GCBootcamp\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
+            using (var reader = new StreamReader(@"C:\Users\riuliani\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
             {
 
@@ -28,17 +26,27 @@ namespace POSTerminal
                     var output = item.Split(",");
                     menu.Add(new Product
                     {
-                        Name = output[0],
-                        Category = output[1],
-                        Description = output[2],
 
-                        Price = decimal.TryParse(output[3], out int number) ? number : default
-                    });
+                        MealNumber = int.TryParse(output[0], out int mealNumber) ? mealNumber : default,
+                        Name = output[1],
+                        Category = output[2],
+                        Description = output[3],
+                        Price = decimal.TryParse(output[4], out decimal number) ? number : default,
+
+                    }) ;
 
                 } while (item != null);
             }
 
             return menu;
+        }
+
+        public static void AddItems(string item)
+        {
+            using (var writer = new StreamWriter(@"C:\Users\riuliani\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt", append: true))
+            {
+                writer.WriteLine(item);
+            }
         }
     }
 }
