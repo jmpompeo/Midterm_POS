@@ -6,6 +6,7 @@ namespace POSTerminal
 {
     public class Product
     {
+        public int MealNumber { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
@@ -25,6 +26,33 @@ namespace POSTerminal
            return "";
         }
 
+        public void Menu()
+        {
+            var producutList = Database.RetriveItems();
+
+            Console.WriteLine("Welcom to CJR! Here is our menu:");
+
+            foreach (var item in prudcutList)
+            {
+                Console.WriteLine($"{item.MealNumber}: {item.Name}, {item.Description}, ${item.Price}");
+            }
+        }
+
+        //public List<string> GetProductItem()
+        //{
+        //    List<string> itemsordered = new List<string>();
+
+
+        //    return itemsordered;
+        //}
+
+        //private static string ItemOrdered()
+        //{
+
+
+        //    return "";
+        //}
+
         //public static string Inventory()
         //{
         //    //    Dictionary<string, int> menuItems = new Dictionary<string, int>()
@@ -41,6 +69,7 @@ namespace POSTerminal
         //    Dictionary<string, int> menuItems = new Dictionary<string, int>();
         //    menuItems.Add("Ind", 1);
 
+
         //    int num = 0;
         //    while (true)
         //    {
@@ -49,8 +78,17 @@ namespace POSTerminal
         //        if (itemquantity == itemquantity)
         //            menuItems.Add();
 
+
           // }
         }
     }
 
+
+        //    }
+
+        //}
+    }
+
+
+}
 
