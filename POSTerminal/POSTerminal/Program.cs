@@ -1,6 +1,4 @@
 ﻿using System;
-
-
 using System.Collections.Generic;
 using System.IO;
 
@@ -11,12 +9,11 @@ namespace POSTerminal
     {
         static void Main(string[] args)
         {
-            var newList = Database.RetriveItems();
-            DisplayMenu(newList);
-
+            var product = new Product();
+            product.Menu();
         }
 
-        private static void DisplayMenu(List<Product> products)
+        public static void DisplayMenu(List<Product> products)
         {
             //int count = 0;
 
@@ -26,15 +23,14 @@ namespace POSTerminal
 
                 Console.WriteLine($"{item.OrderNumber}", $"{item.Name} {item.Category} {item.Description} {item.Price}");
             }
-
         }
-        //++count;++count;++count;
-
-        // Menu
-        // Select itme by name or number
-        // Select quantity
-        // Give user a line item
-        // Redisplay menu 
-
+      
+        private static string GetItemChoice()
+        {
+            Console.WriteLine("What would you like to order?");
+            string order = Console.ReadLine();
+          
+            return $"You ordered {order}";
+        }
     }
 }

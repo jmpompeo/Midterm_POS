@@ -6,44 +6,42 @@ namespace POSTerminal
 {
     public class Product
     {
-        public string OrderNumber { get; set; }
+        public int MealNumber { get; set; }
+
         public string Name { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal Total { get; set; }
+      
+        public List<string> GetProductItem()
+        {
+            List<string> itemsordered = new List<string>();
 
+            return itemsordered;
+        }
 
-        //public void Menu()
-        //{
-        //    var orderList = Database.RetriveItems();
+        private static string ItemOrdered()
+        {
+           return "";
+        }
 
-        //    foreach (var item in orderList)
-        //    {
-        //        Console.WriteLine($"{item.OrderNumber} {item.Name} {item.Price}");
-        //    }
-        //}
+        public void Menu()
+        {
+            var producutList = Database.RetriveItems();
 
-        //public List<string> GetProductItem()
-        //{
-        //    List<string> itemsordered = new List<string>();
+            Console.WriteLine("Welcom to CJR! Here is our menu:");
 
-
-        //    return itemsordered;
-        //}
-
-        //private static string ItemOrdered()
-        //{
-
-
-        //    return " ";
-        //}
-
+            foreach (var item in prudcutList)
+            {
+                Console.WriteLine($"{item.MealNumber}: {item.Name}, {item.Description}, ${item.Price}");
+            }
+        }
+      
         public static Dictionary<int, int> CustomerOrders()
         {
-
-
             Dictionary<int, int> menuItems = new Dictionary<int, int>();
-
 
             bool addToOrder = true;
 
@@ -58,11 +56,8 @@ namespace POSTerminal
                 string quantity = Console.ReadLine();
                 int itemquantity;
                 Int32.TryParse(quantity, out itemquantity);
-
-
+              
                 menuItems.Add(itemselect, itemquantity);
-
-
 
                 Console.WriteLine("Would you like to add to your order? (y/n)");
                 string response = Console.ReadLine().ToUpper();
@@ -73,10 +68,8 @@ namespace POSTerminal
                 }
 
             }
+          
             return menuItems;
-
         }
-
     }
-
 }
