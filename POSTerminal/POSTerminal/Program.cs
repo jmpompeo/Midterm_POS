@@ -11,26 +11,12 @@ namespace POSTerminal
         {
             var product = new Product();
             product.Menu();
+            
+            var newList = product.databaseList;
+            
+            product.GetOrder(newList);
         }
 
-        public static void DisplayMenu(List<Product> products)
-        {
-            //int count = 0;
-
-            foreach (var item in products)
-            {
-                //++count;
-
-                Console.WriteLine($"{item.OrderNumber}", $"{item.Name} {item.Category} {item.Description} {item.Price}");
-            }
-        }
-      
-        private static string GetItemChoice()
-        {
-            Console.WriteLine("What would you like to order?");
-            string order = Console.ReadLine();
-          
-            return $"You ordered {order}";
-        }
+       
     }
 }

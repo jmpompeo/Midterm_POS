@@ -30,6 +30,9 @@ namespace POSTerminal
                 case "credit":
                     UseCredit();
                     break;
+                case "debit":
+                    UseDebit();
+                    break;
                 case "check":
                     UseCheck();
                     break;
@@ -49,7 +52,6 @@ namespace POSTerminal
 
             return false;
         }
-
         private bool ValidateLicense(string license)
         {
             var reg = new Regex(@"^[A-Z]*\d{1,16}");
@@ -73,7 +75,6 @@ namespace POSTerminal
 
             return false;
         }
-
         private bool ValidateExpDate(string response)
         {
             var expDateReg = new Regex(@"^\d{4}$");
@@ -86,6 +87,17 @@ namespace POSTerminal
             return false;
         }
 
+        private bool ValidatePin(string response)
+        {
+            var expDateReg = new Regex(@"^\d{4}$");
+
+            if (expDateReg.IsMatch(response))
+            {
+                return true;
+            }
+
+            return false;
+        }
         private bool ValidateCVV(string response)
         {
             var cvvReg = new Regex(@"^\d{3,4}$");
@@ -97,13 +109,11 @@ namespace POSTerminal
 
             return false;
         }
-
         public decimal UseCash(decimal cashGiven)
         {
             return cashGiven - OrderAmount;
         }
-
-        public string UseCredit()
+        public string UseCredit() // change to DebitOrCredit
         {
             string cardNum, expDate, cvvNum;
 
@@ -135,6 +145,47 @@ namespace POSTerminal
             
             return "APPROVED" + "\r\n"  + "Thank you for shopping with us! ";
         }
+
+        public string UseDebit()
+        { 
+            string cardNum, expDate, cvvNum, pinNum;
+
+            do
+            {
+                Console.Write("Please enter your card number: ");
+                cardNum = Console.ReadLine();
+
+            } while (!ValidateCardNum(cardNum));
+
+            do
+            {
+                Console.Write("Please enter expiration date: ");
+                expDate = Console.ReadLine();
+
+            } while (!ValidateExpDate(expDate));
+
+            do
+            {
+                Console.Write("Please enter your CVV: ");
+                cvvNum = Console.ReadLine();
+            } while (!ValidateCVV(cvvNum));
+
+            do
+            {
+                Console.Write("Please enter your pin: ");
+                pinNum = Console.ReadLine();
+
+            } while (!ValidatePin(pinNum));
+
+            for (int i = 10; i > 0; i--)
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("...");
+            }
+
+            return "APPROVED" + "\r\n" + "Thank you for shopping with us! ";
+        }
+
         public void UseCheck()
         {
             string response;

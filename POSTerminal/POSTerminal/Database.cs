@@ -11,10 +11,9 @@ namespace POSTerminal
             List<Product> menu = new List<Product>();
 
 
-            using (var reader = new StreamReader(@"C:\Users\riuliani\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
+            using (var reader = new StreamReader(@"C:\Users\joeyp\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
             {
-
                 string item;
                 do
                 {
@@ -24,7 +23,6 @@ namespace POSTerminal
                     {
                         break;
                     }
-
 
                     var output = item.Split(",");
                     menu.Add(new Product
