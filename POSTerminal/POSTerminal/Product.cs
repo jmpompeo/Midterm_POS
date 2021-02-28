@@ -5,6 +5,7 @@ using System.Text;
 
 namespace POSTerminal
 {
+    //Removed Item ordered method
     public class Product
     {
         public int MealNumber { get; set; }
@@ -14,6 +15,7 @@ namespace POSTerminal
         public decimal Price { get; set; }
         public decimal Quantity { get; set; }
         public decimal Total { get; set; }
+
 
         public List<Product> databaseList = new List<Product>();
       
@@ -120,7 +122,7 @@ namespace POSTerminal
         //        string quantity = Console.ReadLine();
         //        int itemquantity;
         //        Int32.TryParse(quantity, out itemquantity);
-              
+
         //        menuItems.Add(itemselect, itemquantity);
 
         //        Console.WriteLine("Would you like to add to your order? (y/n)");
@@ -130,8 +132,9 @@ namespace POSTerminal
         //        {
         //            addToOrder = false;
         //        }
+
         //    }
-          
+         
         //    return menuItems;
         //}
     }

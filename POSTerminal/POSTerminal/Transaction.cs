@@ -20,12 +20,14 @@ namespace POSTerminal
 
         public decimal OrderAmount { get; }
 
-        public void SelectPayment(string paymentType, decimal cashGiven)
+        //we need to add an option for debit here
+        public void SelectPayment(string paymentType, decimal cash)
         {
-            switch (paymentType.ToLower())
+            //removed the .ToLower() method from here
+            switch (paymentType)
             {
                 case "cash":
-                    UseCash(cashGiven);
+                    UseCash(cash);
                     break;
                 case "credit":
                     UseCredit();
@@ -142,8 +144,8 @@ namespace POSTerminal
                 Thread.Sleep(500);
                 Console.WriteLine("...");
             }
-            
-            return "APPROVED" + "\r\n"  + "Thank you for shopping with us! ";
+
+            return "APPROVED" + "\r\n" + "Thank you for shopping with us! ";
         }
 
         public string UseDebit()
@@ -201,13 +203,11 @@ namespace POSTerminal
             {
                 Console.WriteLine("Please enter a check number: ");
                 response = Console.ReadLine();
-                
+
             } while (!ValidateCheck(response));
         }
-
         public List<Product> GetLineTotal(List<Product> products)
         {
-            
             var lineTotal = new List<Product>();
 
             foreach (var product in products)
