@@ -5,20 +5,13 @@ using System.IO;
 
 namespace POSTerminal
 {
-    //Removed the DisplayMenu Method
-
     class Program
     {
         static void Main(string[] args)
         {
             var product = new Product();
             product.Menu();
-
-
         }
-
-
-        //Added the .ToLower() method here
         private static string GetPaymentType()
         {
             Console.WriteLine("Your total is (enter total here).");
@@ -64,5 +57,6 @@ namespace POSTerminal
 
             return cash;
         }
+
     }
 }
