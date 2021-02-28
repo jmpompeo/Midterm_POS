@@ -5,34 +5,64 @@ using System.IO;
 
 namespace POSTerminal
 {
+    //Removed the DisplayMenu Method
+
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to CJR!");
-            Console.WriteLine();
-            var products = Database.RetriveItems(); 
-            DisplayMenu(products); 
+            var product = new Product();
+            product.Menu();
+
+
         }
 
-        public static void DisplayMenu(List<Product> products)
+
+        //Added the .ToLower() method here
+        private static string GetPaymentType()
         {
-            foreach (var item in products)
+            Console.WriteLine("Your total is (enter total here).");
+            Console.WriteLine("Please select payment type" + "\r\n" +
+                               "Cash" + "\r\n" +
+                               "Credit" + "\r\n" +
+                               "Check");
+            var paymentType = Console.ReadLine();
+
+            if (paymentType.ToLower() == "cash")
             {
-                Console.WriteLine($"{item.Name} {item.Category} {item.Description} {item.Price}");
+                return "cash";
+            }
+            else if (paymentType.ToLower() == "credit")
+            {
+                Console.WriteLine("Will it be debit or credit");
+                var creditOrDebit = Console.ReadLine();
+                if (creditOrDebit == "credit")
+                {
+                    return "credit";
+                }
+                else
+                {
+                    return "debit";
+                }
+            }
+            else
+            {
+                return "check";
             }
         }
-        private static string GetItemChoice()
+
+        private static decimal CashGiven()
         {
-            Console.WriteLine("What would you like to order?");
-            string order = Console.ReadLine();
-          
-            return $"You ordered {order}";
+            decimal cash = 0;
+            bool isValid;
+            do
+            {
+                Console.WriteLine("Please enter the amount of cash given");
+                isValid = decimal.TryParse(Console.ReadLine(), out cash);
+
+            } while (!isValid);
+
+            return cash;
         }
-        // Menu
-        // Select itme by name or number
-        // Select quantity
-        // Give user a line item
-        // Redisplay menu 
     }
 }

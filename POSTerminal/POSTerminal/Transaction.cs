@@ -8,11 +8,9 @@ namespace POSTerminal
 {
     public class Transaction
     {
-
         public Transaction(decimal orderAmount)
         {
             OrderAmount = orderAmount;
-            
         }
 
         public Transaction()
@@ -22,12 +20,14 @@ namespace POSTerminal
 
         public decimal OrderAmount { get; }
 
-        public void SelectPayment(string paymentType, decimal cashGiven)
+        //we need to add an option for debit here
+        public void SelectPayment(string paymentType, decimal cash)
         {
-            switch (paymentType.ToLower())
+            //removed the .ToLower() method from here
+            switch (paymentType)
             {
                 case "cash":
-                    UseCash(cashGiven);
+                    UseCash(cash);
                     break;
                 case "credit":
                     UseCredit();
@@ -50,7 +50,18 @@ namespace POSTerminal
             }
 
             return false;
-            
+        }
+
+        private bool ValidateLicense(string license)
+        {
+            var reg = new Regex(@"^[A-Z]*\d{1,16}");
+
+            if (reg.IsMatch(license))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool ValidateCardNum(string response)
@@ -123,50 +134,55 @@ namespace POSTerminal
                 Thread.Sleep(500);
                 Console.WriteLine("...");
             }
-            
-            return "APPROVED" + "\r\n"  + "Thank you for shopping with us! ";
+
+            return "APPROVED" + "\r\n" + "Thank you for shopping with us! ";
         }
         public void UseCheck()
         {
             string response;
+            string license = null;
+
+            do
+            {
+                Console.WriteLine("Please enter your driver's license number: ");
+
+            } while (!ValidateLicense(license));
 
             do
             {
                 Console.WriteLine("Please enter a check number: ");
                 response = Console.ReadLine();
-                
+
             } while (!ValidateCheck(response));
         }
 
-        public decimal GetLineTotal(List<Product> products)
+
+        // Might reuse these two methods for receipt with some changes.  
+        public List<Product> GetLineTotal(List<Product> products)
         {
-            decimal lineTotal = 0;
+
+            var lineTotal = new List<Product>();
 
             foreach (var product in products)
             {
                 var total = product.Price * product.Quantity;
-                lineTotal += total;
+                lineTotal.Add(new Product { Name = product.Name, Quantity = product.Quantity, Price = product.Price, Total = total });
             }
 
             return lineTotal;
         }
 
-        public decimal CalculateTotal(List<Product> products) // test method to see if it works
+        public decimal CalculateTotal(List<Product> lineTotal)
         {
             decimal salesTax = .06M;
-            decimal linetotal;
-            decimal subtotal = 0;
-            decimal grandTotal = 0;
+            decimal subTotal = 0;
 
-            foreach (var product in products)
+            foreach (var item in lineTotal)
             {
-                linetotal = GetLineTotal(products);
-                subtotal += linetotal;
-                grandTotal += subtotal * salesTax;
-
+                subTotal += item.Total;
             }
 
-            return grandTotal;
+            return (subTotal * salesTax) + subTotal;
         }
     }
 }
