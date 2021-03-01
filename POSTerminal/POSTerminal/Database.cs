@@ -10,7 +10,7 @@ namespace POSTerminal
         {
             List<Product> menu = new List<Product>();
 
-            using (var reader = new StreamReader(@"C:\Users\Raff\source\GCBootcamp\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
+            //using (var reader = new StreamReader(@"C:\Users\Raff\source\GCBootcamp\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
             using (var reader = new StreamReader(@"C:\Users\joeyp\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
@@ -34,7 +34,7 @@ namespace POSTerminal
                         Category = output[2],
                         Description = output[3],
                         Price = decimal.TryParse(output[4], out decimal number) ? number : default,
-
+                        //Quantity = decimal.TryParse(output[5], out decimal number2) ? number2 : default,
                     }) ;
 
                 } while (item != null);

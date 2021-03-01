@@ -50,9 +50,33 @@ namespace POSTerminal
             Console.WriteLine("What would you like to order? ");
             var reponse = Console.ReadLine();
 
+            Console.WriteLine("How many would you like? ");
+            var quantity = decimal.TryParse(Console.ReadLine(), out decimal num) ? num : default;
+            
+
+
             if (reponse.ToLower() == "1" || reponse.ToLower() == "cheeseburger")
             {
                 products.Add(databaseList[0]);
+                Quantity = quantity;
+                products.(0,"","","",0, Quantity);
+                
+                //foreach (var item in databaseList)
+                //{
+                //    var toString = item.ToString();
+                //    var split = toString.Split(",");
+                //    products.Add(new Product
+                //    {
+                //        MealNumber = int.TryParse(split[0], out int num) ? num : default,
+                //        Name = split[1],
+                //        Category = split[2],
+                //        Description = split[3],
+                //        Price = decimal.TryParse(split[4], out decimal number1) ? number1 : default,
+                //        //Quantity = decimal.TryParse(split[5], out decimal number2) ? number2 : default,
+                //    });
+                //}
+
+                
             }
             else if (reponse.ToLower() == "2" || reponse.ToLower() == "double cheeseburger")
             {
@@ -102,6 +126,9 @@ namespace POSTerminal
             {
                 Console.WriteLine("Go away");
             }
+
+           
+
             return products;
         }
       
