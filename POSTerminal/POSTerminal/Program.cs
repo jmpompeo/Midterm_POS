@@ -11,6 +11,7 @@ namespace POSTerminal
         {
             var product = new Product();
             product.Menu();
+
             var list = product.databaseList;
             var prodcuts = product.GetOrder(list);
             foreach (var item in prodcuts)
