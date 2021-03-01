@@ -12,7 +12,7 @@ namespace POSTerminal
 
             using (var reader = new StreamReader(@"C:\Users\Raff\source\GCBootcamp\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
-            using (var reader = new StreamReader(@"C:\Users\joeyp\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
+            //using (var reader = new StreamReader(@"C:\Users\joeyp\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
             {
                 string item;
@@ -29,7 +29,7 @@ namespace POSTerminal
                     var output = item.Split(",");
                     menu.Add(new Product
                     {
-                        MealNumber = int.TryParse(output[0], out int mealNumber) ? mealNumber : default,
+                        MealNumber = int.TryParse(output[0], out int number1) ? number1 : default,
                         Name = output[1],
                         Category = output[2],
                         Description = output[3],

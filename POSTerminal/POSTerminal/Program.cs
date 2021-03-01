@@ -11,6 +11,12 @@ namespace POSTerminal
         {
             var product = new Product();
             product.Menu();
+            var list = product.databaseList;
+            var prodcuts = product.GetOrder(list);
+            foreach (var item in prodcuts)
+            {
+                Console.WriteLine($"{item.Name}, {item.Quantity}, {item.Price}");
+            }
         }
         private static string GetPaymentType()
         {
