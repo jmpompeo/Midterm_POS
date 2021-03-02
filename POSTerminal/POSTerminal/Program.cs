@@ -11,21 +11,31 @@ namespace POSTerminal
         {
             var product = new Product();
             product.Menu();
+            Console.WriteLine();
+            var newList = product.GetOrder(product.databaseList);
+            Console.WriteLine();
+            var trans = new Transaction();
 
-            var list = product.databaseList;
-            var prodcuts = product.GetOrder(list);
-            foreach (var item in prodcuts)
-            {
-                Console.WriteLine($"{item.Name}, {item.Quantity}, {item.Price}");
-            }
+            var lineTotal = trans.GetLineTotal(newList);
+            Console.WriteLine();
+            var getTotal = trans.CalculateTotal(lineTotal);
+            Console.WriteLine();
+            trans.OrderAmount = getTotal;
+            var paymentType = GetPaymentType();
+            Console.WriteLine();
+            trans.SelectPayment(paymentType);
+            Console.WriteLine();
+            var receipt = new Receipt();
+            receipt.GenerateReceipt(lineTotal);
+            Console.WriteLine();
+            product.ItemsSoldToday(newList);
         }
+
         private static string GetPaymentType()
         {
-            Console.WriteLine("Your total is (enter total here).");
-            Console.WriteLine("Please select payment type" + "\r\n" +
-                               "Cash" + "\r\n" +
-                               "Credit" + "\r\n" +
-                               "Check");
+            Console.WriteLine("Please select payment type: " + "\r\n" +
+                               "Cash, Credit or Check");
+               
             var paymentType = Console.ReadLine();
 
             if (paymentType.ToLower() == "cash")
@@ -50,20 +60,5 @@ namespace POSTerminal
                 return "check";
             }
         }
-
-        private static decimal CashGiven()
-        {
-            decimal cash = 0;
-            bool isValid;
-            do
-            {
-                Console.WriteLine("Please enter the amount of cash given");
-                isValid = decimal.TryParse(Console.ReadLine(), out cash);
-
-            } while (!isValid);
-
-            return cash;
-        }
-
     }
 }
