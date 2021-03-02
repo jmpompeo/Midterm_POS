@@ -4,8 +4,6 @@ using System.Text;
 
 namespace POSTerminal
 {
-    //Added Receipt class
-    //Added GenerateReceipt method
     public class Receipt
     {
         public void GenerateReceipt(List<Product> lineTotal)
@@ -20,21 +18,21 @@ namespace POSTerminal
             sb.AppendLine(String.Format("{0,25}", "313-432-8637"));
 
             sb.AppendLine("==============================================");
-            sb.AppendLine(String.Format("{0,-8} {1,-30} {2,-30}\n", "Qty", "Item", "Price"));
+            sb.AppendLine(String.Format("{0,-8} {1,-30} {2,6}\n", "Qty", "Item", "Price"));
             Console.WriteLine(sb);
             foreach (var item in lineTotal)
             {
-                Console.WriteLine("{0,-8} {1,-30} {2,-30}", $"{item.Quantity}", $"{item.Name}", $"${item.Price}");
+                Console.WriteLine("{0,-8} {1,-30} {2,6}", $"{item.Quantity}", $"{item.Name}", $"${item.Price}");
                 pricePerItem = item.Quantity * item.Price;
                 subTotal += pricePerItem;
             }
             Console.WriteLine("==============================================");
-            Console.WriteLine("{0,-8} {1,33:NO}", "Subtotal:", $"${subTotal}");
+            Console.WriteLine("{0,-8} {1,36:NO}", "Subtotal:", $"${subTotal}");
             decimal salesTax = .06M;
             decimal totalSalesTax = subTotal * salesTax;
-            Console.WriteLine("{0,-8} {1,34:NO}", "Sales Tax:", $"${totalSalesTax}");
+            Console.WriteLine("{0,-8} {1,35:NO}", "Sales Tax:", $"${Math.Round(totalSalesTax,2)}");
             decimal total = totalSalesTax + subTotal;
-            Console.WriteLine("{0,-8} {1,37:NO}", "Total:", $"${total}");
+            Console.WriteLine("{0,-8} {1,37:NO}", "Total:", $"${Math.Round(total,2)}");
         }
     }
 }

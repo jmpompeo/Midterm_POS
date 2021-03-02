@@ -18,16 +18,15 @@ namespace POSTerminal
 
         }
 
-        public decimal OrderAmount { get; }
+        public decimal OrderAmount { get; set; }
 
-        //we need to add an option for debit here
-        public void SelectPayment(string paymentType, decimal cash)
+        public void SelectPayment(string paymentType)
         {
-            //removed the .ToLower() method from here
             switch (paymentType)
             {
                 case "cash":
-                    UseCash(cash);
+
+                    UseCash();
                     break;
                 case "credit":
                     UseCredit();
@@ -51,18 +50,27 @@ namespace POSTerminal
             {
                 return true;
             }
+            else if (String.IsNullOrEmpty(response))
+            {
+                return false;
+            }
 
             return false;
         }
+
         private bool ValidateLicense(string license)
         {
+            
             var reg = new Regex(@"^[A-Z]*\d{1,16}");
 
             if (reg.IsMatch(license))
             {
                 return true;
             }
-
+            else if (String.IsNullOrEmpty(license))
+            {
+                return false;
+            }
             return false;
         }
 
@@ -74,6 +82,10 @@ namespace POSTerminal
             {
                 return true;
             }
+            else if (String.IsNullOrEmpty(response))
+            {
+                return false;
+            }
 
             return false;
         }
@@ -84,6 +96,10 @@ namespace POSTerminal
             if (expDateReg.IsMatch(response))
             {
                 return true;
+            }
+            else if (String.IsNullOrEmpty(response))
+            {
+                return false;
             }
 
             return false;
@@ -97,9 +113,14 @@ namespace POSTerminal
             {
                 return true;
             }
+            else if (String.IsNullOrEmpty(response))
+            {
+                return false;
+            }
 
             return false;
         }
+
         private bool ValidateCVV(string response)
         {
             var cvvReg = new Regex(@"^\d{3,4}$");
@@ -108,14 +129,41 @@ namespace POSTerminal
             {
                 return true;
             }
+            else if (String.IsNullOrEmpty(response))
+            {
+                return false;
+            }
 
             return false;
         }
-        public decimal UseCash(decimal cashGiven)
+
+        public void UseCash()
         {
-            return cashGiven - OrderAmount;
+            decimal cash = 0;
+            bool isValid;
+            decimal cashGiven;
+            
+            do
+            {
+                Console.WriteLine("Please enter the amount of cash given");
+                isValid = decimal.TryParse(Console.ReadLine(), out cash);
+
+                for (decimal i = cash; i < OrderAmount; i++)
+                {
+                    Console.WriteLine("PAY UP JASON!! ");
+                    cashGiven = decimal.TryParse(Console.ReadLine(), out cashGiven) ? cashGiven : default;
+                    cash += cashGiven;
+                }
+
+            } while (!isValid);
+
+            
+
+            decimal change = cash - OrderAmount;
+            Console.WriteLine($"Your change is: ${Math.Round(change,2)}");
         }
-        public string UseCredit() // change to DebitOrCredit
+
+        public void UseCredit()
         {
             string cardNum, expDate, cvvNum;
 
@@ -145,10 +193,10 @@ namespace POSTerminal
                 Console.WriteLine("...");
             }
 
-            return "APPROVED" + "\r\n" + "Thank you for shopping with us! ";
+            Console.WriteLine("APPROVED" + "\r\n" + "Thank you for shopping with us! ");
         }
 
-        public string UseDebit()
+        public void UseDebit()
         { 
             string cardNum, expDate, cvvNum, pinNum;
 
@@ -185,17 +233,18 @@ namespace POSTerminal
                 Console.WriteLine("...");
             }
 
-            return "APPROVED" + "\r\n" + "Thank you for shopping with us! ";
+            Console.WriteLine("APPROVED" + "\r\n" + "Thank you for shopping with us! ");
         }
 
         public void UseCheck()
         {
             string response;
-            string license = null;
+            string license;
 
             do
             {
                 Console.WriteLine("Please enter your driver's license number: ");
+                license = Console.ReadLine();
 
             } while (!ValidateLicense(license));
 
@@ -205,15 +254,20 @@ namespace POSTerminal
                 response = Console.ReadLine();
 
             } while (!ValidateCheck(response));
+
+            Console.WriteLine("Thank you for shopping at CJR Burgers!! Please come again for another delectible treat.");
         }
         public List<Product> GetLineTotal(List<Product> products)
         {
             var lineTotal = new List<Product>();
 
+            Console.WriteLine("Here's what you have ordered: ");
+
             foreach (var product in products)
             {
-                var total = product.Price * product.Quantity;
-                lineTotal.Add(new Product { Name = product.Name, Quantity = product.Quantity, Price = product.Price, Total = total });
+                product.Total = product.Price * product.Quantity;
+                lineTotal.Add(new Product { Quantity = product.Quantity, Name = product.Name, Price = product.Price, Total = product.Total});
+                Console.WriteLine($"{product.Quantity} {product.Name} ");
             }
 
             return lineTotal;
@@ -229,7 +283,13 @@ namespace POSTerminal
                  subTotal += item.Total;
             }
 
-            return (subTotal * salesTax) + subTotal;
+            Console.WriteLine($"Subtotal: ${subTotal}");
+            var totalTax = subTotal * salesTax;
+            Console.WriteLine($"Taxes: ${Math.Round(totalTax,2)}");
+            var grandTotal = totalTax + subTotal;
+            Console.WriteLine($"Total with taxes: ${Math.Round(grandTotal,2)}");
+
+            return grandTotal;
         }
     }
 }

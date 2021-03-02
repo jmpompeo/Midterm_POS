@@ -18,6 +18,8 @@ namespace POSTerminal
 
 
         public List<Product> databaseList = new List<Product>();
+        
+
 
         public List<string> GetProductItem()
         {
@@ -79,7 +81,6 @@ namespace POSTerminal
 
                 do
                 {
-
                     Console.WriteLine("Would you like to add to your order? (y/n)");
                     addToOrder = Console.ReadLine();
                     isValid = addToOrder != "y" && addToOrder != "n";
@@ -89,6 +90,16 @@ namespace POSTerminal
             } while (addToOrder.ToLower() == "y");
 
             return products;
-        }       
+        } 
+        
+        public void ItemsSoldToday(List<Product> databaseList)
+        {
+            Console.WriteLine("These are the items that we sold today: ");
+
+            foreach (var item in databaseList)
+            {
+                Console.WriteLine($"{item.Name} : {item.Quantity}");
+            }
+        }
     }
 }
