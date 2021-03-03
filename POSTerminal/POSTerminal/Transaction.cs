@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -21,11 +21,10 @@ namespace POSTerminal
         public decimal OrderAmount { get; set; }
 
         public void SelectPayment(string paymentType)
-        {
+        {            
             switch (paymentType)
             {
                 case "cash":
-
                     UseCash();
                     break;
                 case "credit":
@@ -155,9 +154,7 @@ namespace POSTerminal
                     cash += cashGiven;
                 }
 
-            } while (!isValid);
-
-            
+            } while (!isValid);           
 
             decimal change = cash - OrderAmount;
             Console.WriteLine($"Your change is: ${Math.Round(change,2)}");
@@ -265,12 +262,33 @@ namespace POSTerminal
 
             foreach (var product in products)
             {
-                product.Total = product.Price * product.Quantity;
-                lineTotal.Add(new Product { Quantity = product.Quantity, Name = product.Name, Price = product.Price, Total = product.Total});
-                Console.WriteLine($"{product.Quantity} {product.Name} ");
-            }
+                if (!lineTotal.Any(x => x.Name == product.Name))
+                {
+                    product.Total = product.Price * product.Quantity;
+                    lineTotal.Add(new Product { Quantity = product.Quantity, Name = product.Name, Price = product.Price, Total = product.Total});
+                }
+                else
+                {
+                    foreach (var line in lineTotal)
+                    {
+                        if (line.Name == product.Name)
+                        {
+                            line.Quantity += product.Quantity;
+                            line.Total += product.Price * product.Quantity;
+                        }
+                    }
+                }
+            }            
 
             return lineTotal;
+        }
+
+        public void DisplayLineTotal(List<Product> lineTotal)
+        {
+            foreach (var total in lineTotal)
+            {
+                Console.WriteLine($"{total.Quantity} {total.Name} ");
+            }
         }
 
         public decimal CalculateTotal(List<Product> lineTotal)
