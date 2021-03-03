@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace POSTerminal
 {
-    //Removed Item ordered method
     public class Product
     {
         public int MealNumber { get; set; }
@@ -19,20 +16,11 @@ namespace POSTerminal
 
         public List<Product> databaseList = new List<Product>();
         
-
-
-        public List<string> GetProductItem()
-        {
-            List<string> itemsordered = new List<string>();
-
-            return itemsordered;
-        }
-
         public void Menu()
         {
             var productList = Database.RetriveItems();
 
-            Console.WriteLine("Welcom to CJR! Here is our menu:");
+            Console.WriteLine("Welcome to CJR! Here is our menu:");
 
             foreach (var item in productList)
             {
@@ -50,18 +38,39 @@ namespace POSTerminal
             do
             {                
                 Console.WriteLine("What would you like to order? ");
-                var response = Console.ReadLine();
+                var order = Console.ReadLine();
 
-                int output = 0;
-                string outputString = "";
+                int orderNumber = 0;
+                string itemName = string.Empty;
 
-                if(int.TryParse(response, out int number))
+                if(int.TryParse(order, out int number))
                 {
-                    output = number;
+                    orderNumber = number;
                 }
                 else
                 {
-                    outputString  = response;
+                    var orderName = new List<string>();
+
+                    foreach (var item in databaseList)
+                    {
+                        orderName.Add(item.Name);
+                    }
+
+                    if (orderName.Contains(order))      
+                    {
+                        itemName = order;
+                    }
+                    else
+                    {
+                        var tryAgain = string.Empty;
+                        do
+                        {
+                            Console.WriteLine("Please enter a correct item name:");
+                            tryAgain = Console.ReadLine();
+
+                        } while (!orderName.Contains(tryAgain));
+                    }
+                    
                 }
 
                 Console.WriteLine("How many would you like?");
@@ -69,11 +78,11 @@ namespace POSTerminal
             
                 foreach (var item in databaseList)
                 {
-                    if (item.Name == outputString)
+                    if (item.Name == itemName)
                     {
                         products.Add(new Product { Name = item.Name, Quantity = quantity, Price = item.Price });
                     }
-                    else if(item.MealNumber == output)
+                    else if(item.MealNumber == orderNumber)
                     {
                         products.Add(new Product { Name = item.Name, Quantity = quantity, Price = item.Price });
                     }
@@ -90,16 +99,6 @@ namespace POSTerminal
             } while (addToOrder.ToLower() == "y");
 
             return products;
-        } 
-        
-        public void ItemsSoldToday(List<Product> databaseList)
-        {
-            Console.WriteLine("These are the items that we sold today: ");
-
-            foreach (var item in databaseList)
-            {
-                Console.WriteLine($"{item.Name} : {item.Quantity}");
-            }
         }
     }
 }
