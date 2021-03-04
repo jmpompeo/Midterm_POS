@@ -4,9 +4,10 @@ using System.Text;
 
 namespace POSTerminal
 {
+    
     public class Receipt
     {
-        public void GenerateReceipt(List<Product> lineTotal)
+        public void GenerateReceipt(List<Product> lineTotal, string paymentType)
         {
             decimal pricePerItem;
             decimal subTotal = 0;
@@ -26,12 +27,13 @@ namespace POSTerminal
                 pricePerItem = item.Quantity * item.Price;
                 subTotal += pricePerItem;
             }
-            Console.WriteLine("==============================================");
+            Console.WriteLine("==============================================");            
             Console.WriteLine("{0,-8} {1,36:NO}", "Subtotal:", $"${subTotal}");
             decimal salesTax = .06M;
             decimal totalSalesTax = subTotal * salesTax;
             Console.WriteLine("{0,-8} {1,35:NO}", "Sales Tax:", $"${Math.Round(totalSalesTax,2)}");
             decimal total = totalSalesTax + subTotal;
+            Console.WriteLine("{0,-8} {1,32}","Payment Type:", $"{paymentType}");
             Console.WriteLine("{0,-8} {1,37:NO}", "Total:", $"${Math.Round(total,2)}");
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace POSTerminal
 {
@@ -35,17 +36,46 @@ namespace POSTerminal
             var products = new List<Product>();
             bool isValid;
             string addToOrder;
+            string order;
+
             do
-            {                
-                Console.WriteLine("What would you like to order? ");
-                var order = Console.ReadLine();
+            {
+                do
+                {
+                    Console.WriteLine("What would you like to order? ");
+                    order = Console.ReadLine();
+
+                } while (string.IsNullOrEmpty(order));
+               
 
                 int orderNumber = 0;
                 string itemName = string.Empty;
 
                 if(int.TryParse(order, out int number))
                 {
-                    orderNumber = number;
+                    var mealNumber = new List<int>();
+                    foreach (var item in databaseList)
+                    {
+                        mealNumber.Add(item.MealNumber);
+                    }
+
+                    if (mealNumber.Contains(number))
+                    {
+                        orderNumber = number;
+
+                    }
+                    else
+                    {
+                        var tryAgain = string.Empty;
+                        string mealString;
+                        do
+                        {
+                            Console.WriteLine("Please enter a correct item:");
+                            tryAgain = Console.ReadLine();
+                            mealString = mealNumber.ToString();
+
+                        } while (!mealString.Contains(tryAgain));
+                    }
                 }
                 else
                 {
@@ -65,7 +95,7 @@ namespace POSTerminal
                         var tryAgain = string.Empty;
                         do
                         {
-                            Console.WriteLine("Please enter a correct item name:");
+                            Console.WriteLine("Please enter a correct item:");
                             tryAgain = Console.ReadLine();
 
                         } while (!orderName.Contains(tryAgain));

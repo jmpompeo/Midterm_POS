@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -41,6 +42,11 @@ namespace POSTerminal
             }
         }
 
+        public string DisplayPaymentType(string paymentType)
+        {   
+           return paymentType;
+        }
+
         private bool ValidateCheck(string response)
         {
             var reg = new Regex(@"^[0-9]+$");
@@ -75,7 +81,7 @@ namespace POSTerminal
 
         private bool ValidateCardNum(string response)
         {
-            var cardNumReg = new Regex(@"^\d{15,19}$");
+            var cardNumReg = new Regex(@"^\d{15,16}$");
 
             if (cardNumReg.IsMatch(response))
             {
@@ -184,10 +190,11 @@ namespace POSTerminal
                 cvvNum = Console.ReadLine();
             } while (!ValidateCVV(cvvNum));
 
+            Console.WriteLine("Processing");
             for (int i = 10; i > 0; i--)
             {
                 Thread.Sleep(500);
-                Console.WriteLine("...");
+                Console.WriteLine(".");
             }
 
             Console.WriteLine("APPROVED" + "\r\n" + "Thank you for shopping with us! ");
