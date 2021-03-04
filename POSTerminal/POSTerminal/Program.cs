@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace POSTerminal
 {
@@ -41,7 +42,8 @@ namespace POSTerminal
                 Console.WriteLine();
 
                 var receipt = new Receipt();
-                receipt.GenerateReceipt(lineTotal);
+                var payment = trans.DisplayPaymentType(paymentType);
+                receipt.GenerateReceipt(lineTotal, payment);
                 Console.WriteLine();
 
                 DisplayItemSoldToday(itemSold);
@@ -87,17 +89,20 @@ namespace POSTerminal
 
         private static string GetPaymentType()
         {
+            var reg = new Regex(@"^\b(cash|credit|check|Cash|Credit|Check)\b$");
             string paymentType;
-            bool isValid;
             do
             {
                 Console.WriteLine("Please select payment type: " + "\r\n" +
                                  "Cash, Credit or Check");
                 paymentType = Console.ReadLine();
 
-                isValid = paymentType != "Cash" && paymentType != "Credit" && paymentType != "Check";
+                if (!reg.IsMatch(paymentType))
+                {
+                    Console.WriteLine("Invalid. Enter a valid option.");
+                }
 
-            } while (isValid);
+            } while (!reg.IsMatch(paymentType));
 
             if (paymentType.ToLower() == "cash")
             {
@@ -105,8 +110,15 @@ namespace POSTerminal
             }
             else if (paymentType.ToLower() == "credit")
             {
-                Console.WriteLine("Will it be debit or credit");
-                var creditOrDebit = Console.ReadLine();
+                string creditOrDebit;
+                var reg1 = new Regex(@"^\b(debit|credit|Debit|Credit)\b$");
+                do
+                {
+                    Console.WriteLine("Will it be debit or credit? ");
+                    creditOrDebit = Console.ReadLine();
+
+                } while (!reg1.IsMatch(creditOrDebit));
+               
                 if (creditOrDebit == "credit")
                 {
                     return "credit";
@@ -174,7 +186,8 @@ namespace POSTerminal
                 builder.Append($"{newItemNum},");
                 builder.Append($"{name},");
                 builder.Append($"{category},");
-                builder.Append($"${price}");
+                builder.Append($"{description},");
+                builder.Append($"{price}");
 
                 string message = builder.ToString();
 
