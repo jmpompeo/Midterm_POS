@@ -10,7 +10,7 @@ namespace POSTerminal
         {
             List<Product> menu = new List<Product>();
 
-            using (var reader = new StreamReader(@"C:\Users\joeyp\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
+            using (var reader = new StreamReader(@"C:\Users\riuliani\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt"))
 
             {
                 string item;
@@ -41,7 +41,7 @@ namespace POSTerminal
 
         public static void AddItemToMenu(string item)
         {
-            using (var writer = new StreamWriter(@"C:\Users\joeyp\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt", append: true))
+            using (var writer = new StreamWriter(@"C:\Users\riuliani\source\repos\Midterm_POS\POSTerminal\POSTerminal\ProductItem.txt", append: true))
             {
                 writer.WriteLine(item);
             }

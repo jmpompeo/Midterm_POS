@@ -24,7 +24,6 @@ namespace POSTerminal
                 var newList = product.GetOrder(product.databaseList);
 
                 AddItemToList(newList, itemSold);
-                Console.WriteLine();
 
                 var trans = new Transaction();
                 var lineTotal = trans.GetLineTotal(newList);
@@ -136,10 +135,12 @@ namespace POSTerminal
 
         private static void DisplayItemSoldToday(List<Product> itemSold)
         {
+            Console.WriteLine("Items sold today:");
             foreach (var item in itemSold)
             {
                 Console.WriteLine($"{item.Name} : {item.Quantity}");
             }
+            Console.WriteLine();
         }
 
         private static void GetNewMenuItem(List<Product> databaseList)

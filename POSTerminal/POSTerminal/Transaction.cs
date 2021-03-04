@@ -190,11 +190,11 @@ namespace POSTerminal
                 cvvNum = Console.ReadLine();
             } while (!ValidateCVV(cvvNum));
 
-            Console.WriteLine("Processing");
+            Console.Write("Processing");
             for (int i = 10; i > 0; i--)
             {
                 Thread.Sleep(500);
-                Console.WriteLine(".");
+                Console.Write(".");
             }
 
             Console.WriteLine("APPROVED" + "\r\n" + "Thank you for shopping with us! ");
@@ -231,10 +231,11 @@ namespace POSTerminal
 
             } while (!ValidatePin(pinNum));
 
+            Console.Write("Processing");
             for (int i = 10; i > 0; i--)
             {
                 Thread.Sleep(500);
-                Console.WriteLine("...");
+                Console.Write(".");
             }
 
             Console.WriteLine("APPROVED" + "\r\n" + "Thank you for shopping with us! ");

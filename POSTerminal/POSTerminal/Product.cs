@@ -16,7 +16,7 @@ namespace POSTerminal
 
 
         public List<Product> databaseList = new List<Product>();
-        
+
         public void Menu()
         {
             var productList = Database.RetriveItems();
@@ -31,12 +31,16 @@ namespace POSTerminal
         }
 
         public List<Product> GetOrder(List<Product> databaseList)
-        { 
+        {
 
             var products = new List<Product>();
+            var menuItems = new List<string>();
+            var mealNumbers = new List<string>();
             bool isValid;
             string addToOrder;
             string order;
+            string menuItem = string.Empty;
+            int mealNumber = 0;
 
             do
             {
@@ -46,75 +50,56 @@ namespace POSTerminal
                     order = Console.ReadLine();
 
                 } while (string.IsNullOrEmpty(order));
-               
 
-                int orderNumber = 0;
-                string itemName = string.Empty;
-
-                if(int.TryParse(order, out int number))
-                {
-                    var mealNumber = new List<int>();
-                    foreach (var item in databaseList)
-                    {
-                        mealNumber.Add(item.MealNumber);
-                    }
-
-                    if (mealNumber.Contains(number))
-                    {
-                        orderNumber = number;
-
-                    }
-                    else
-                    {
-                        var tryAgain = string.Empty;
-                        string mealString;
-                        do
-                        {
-                            Console.WriteLine("Please enter a correct item:");
-                            tryAgain = Console.ReadLine();
-                            mealString = mealNumber.ToString();
-
-                        } while (!mealString.Contains(tryAgain));
-                    }
-                }
-                else
-                {
-                    var orderName = new List<string>();
-
-                    foreach (var item in databaseList)
-                    {
-                        orderName.Add(item.Name);
-                    }
-
-                    if (orderName.Contains(order))      
-                    {
-                        itemName = order;
-                    }
-                    else
-                    {
-                        var tryAgain = string.Empty;
-                        do
-                        {
-                            Console.WriteLine("Please enter a correct item:");
-                            tryAgain = Console.ReadLine();
-
-                        } while (!orderName.Contains(tryAgain));
-                    }
-                    
-                }
-
-                Console.WriteLine("How many would you like?");
-                var quantity = int.TryParse(Console.ReadLine(), out int num) ? num : default;
-            
                 foreach (var item in databaseList)
                 {
-                    if (item.Name == itemName)
+                    menuItems.Add(item.Name);
+                    var number = item.MealNumber.ToString();
+                    mealNumbers.Add(number);
+                }
+
+                if (menuItems.Contains(order))
+                {
+                    menuItem = order;
+                }
+                else if (mealNumbers.Contains(order))
+                {
+
+                    mealNumber = int.TryParse(order, out int number) ? number : default;
+
+                }
+                else if (!menuItems.Contains(order))
+                {                    
+                    do
+                    {
+                        Console.WriteLine("Please enter a new item:");
+                        menuItem = Console.ReadLine();
+
+                    } while (!mealNumbers.Contains(menuItem) && !menuItems.Contains(menuItem));
+                }
+
+                string output;
+                do
+                {
+                    Console.WriteLine("How many would you like?");
+                    output = Console.ReadLine();
+
+                } while (string.IsNullOrEmpty(output));
+
+                var quantity = decimal.TryParse(output, out decimal number1) ? number1 : default;
+
+                foreach (var item in databaseList)
+                {
+                    if (item.Name == menuItem)
                     {
                         products.Add(new Product { Name = item.Name, Quantity = quantity, Price = item.Price });
                     }
-                    else if(item.MealNumber == orderNumber)
+                    else if (int.TryParse(menuItem, out int numbers))
                     {
-                        products.Add(new Product { Name = item.Name, Quantity = quantity, Price = item.Price });
+                        if(item.MealNumber == numbers)
+                        {
+                            products.Add(new Product { Name = item.Name, Quantity = quantity, Price = item.Price });
+                        }                       
                     }
                 }
 
@@ -124,7 +109,7 @@ namespace POSTerminal
                     addToOrder = Console.ReadLine();
                     isValid = addToOrder != "y" && addToOrder != "n";
 
-                } while (isValid);               
+                } while (isValid);
 
             } while (addToOrder.ToLower() == "y");
 
