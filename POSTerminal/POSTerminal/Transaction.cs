@@ -141,7 +141,6 @@ namespace POSTerminal
 
             return false;
         }
-
         public void UseCash()
         {
             decimal cash = 0;
