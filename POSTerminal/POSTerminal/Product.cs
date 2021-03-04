@@ -40,7 +40,7 @@ namespace POSTerminal
             string addToOrder;
             string order;
             string menuItem = string.Empty;
-            int mealNumber = 0;
+            string orderNum = string.Empty;
 
             do
             {
@@ -65,11 +65,11 @@ namespace POSTerminal
                 else if (mealNumbers.Contains(order))
                 {
 
-                    mealNumber = int.TryParse(order, out int number) ? number : default;
+                   menuItem = order;
 
                 }
                 else if (!menuItems.Contains(order))
-                {                    
+                {
                     do
                     {
                         Console.WriteLine("Please enter a new item:");
@@ -96,10 +96,10 @@ namespace POSTerminal
                     }
                     else if (int.TryParse(menuItem, out int numbers))
                     {
-                        if(item.MealNumber == numbers)
+                        if (item.MealNumber == numbers)
                         {
                             products.Add(new Product { Name = item.Name, Quantity = quantity, Price = item.Price });
-                        }                       
+                        }
                     }
                 }
 
